@@ -1,0 +1,60 @@
+extends layout
+
+block content
+
+    div(class='container')
+
+
+        h3 public接口
+        table(class='table table-bordered')
+            thead
+                tr
+                    th 接口名称
+                    th 请求地址
+                    th 请求类型
+                    th 接口详情
+            tbody
+
+                each p in publics
+                    tr
+                        td= p.name
+                        td= p.url
+                        td= p.type
+                        td
+                            a(class='btn btn-success btn-sm', href= p.detail_url, target='_blank') 查看详情
+
+        h3 buyer接口
+        table(class='table table-bordered')
+            thead
+                tr
+                    th 接口名称
+                    th 请求地址
+                    th 请求类型
+                    th 接口详情
+            tbody
+
+                each b in buyers
+                    tr
+                        td= b.name
+                        td= b.url
+                        td= b.type
+                        td
+                            a(class='btn btn-success btn-sm', href= b.detail_url, target='_blank') 查看详情
+
+        h3 seller接口
+        table(class='table table-bordered')
+            thead
+                tr
+                    th 接口名称
+                    th 请求地址
+                    th 请求类型
+                    th 接口详情
+            tbody
+
+                each s in sellers
+                    tr
+                        td= s.name
+                        td= s.url
+                        td= s.type
+                        td
+                            a(class='btn btn-success btn-sm', href= s.detail_url, target='_blank') 查看详情

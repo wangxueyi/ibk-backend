@@ -1,0 +1,5 @@
+$(function() {
+    $('#duihuan').click(function() {
+        //
+    });
+});
