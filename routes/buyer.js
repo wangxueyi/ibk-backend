@@ -104,10 +104,10 @@ exports.updateTaobao = function(req, res){
 
 
 /*
- * 获取用户的红包记录
+ * delete
  */
-exports. = function(req, res){
+exports.deleteTaobao = function(req, res){
 
-    res.json('');
+    res.json('deleteTaobao');
 
 };

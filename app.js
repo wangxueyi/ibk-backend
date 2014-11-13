@@ -5,7 +5,7 @@
 
 var express = require('express');
 var routes = require('./routes');
-var user = require('./routes/buyer');
+var buyer = require('./routes/buyer');
 var seller = require('./routes/seller');
 var oauthModel = require('./oauth/model.js');
 var http = require('http');
@@ -84,7 +84,7 @@ app.post('/oauth/token', app.oauth.grant(), function(req, res) {
 
 app.get('/', routes.index);
 
-app.get('/user-info', app.oauth.authorise(), user.userInfo);
+app.get('/user-info', app.oauth.authorise(), buyer.userInfo);
 app.get('/explosions', routes.explosions);
 app.get('/baoliaos', routes.baoliaos);
 app.get('/hongbaos', routes.hongbaos);
@@ -101,35 +101,42 @@ app.patch('/hongbao_records', routes.updateHongbaoRecord);
 
 
 //=buyer
-app.post('/buyers', routes.createBuyer);
-app.get('/buyers/authorize', routes.buyerAuthorize);
-app.patch('/buyers/:bid', routes.updateBuyer);
-app.get('/buyers/:bid', routes.getBuyer);
+app.post('/buyers', buyer.createBuyer);
+app.get('/buyers/authorize', buyer.buyerAuthorize);
+app.patch('/buyers/:bid', buyer.updateBuyer);
+app.get('/buyers/:bid', buyer.getBuyer);
 
-app.get('/buyers/:bid/hongbao_records', routes.getBuyerHongbaoRecords);
+app.get('/buyers/:bid/hongbao_records', buyer.getBuyerHongbaoRecords);
 
-app.post('/buyers/:bid/taobaos', routes.createTaobao);
-app.get('/buyers/:bid/taobaos', routes.getTaobaos);
-app.patch('/buyers/:bid/taobaos/taobao_id', routes.updateTaobao);
-app.delete('/buyers/:bid/taobaos/taobao_id', routes.deleteTaobao);
+app.post('/buyers/:bid/taobaos', buyer.createTaobao);
+app.get('/buyers/:bid/taobaos', buyer.getTaobaos);
+app.patch('/buyers/:bid/taobaos/taobao_id', buyer.updateTaobao);
+app.delete('/buyers/:bid/taobaos/taobao_id', buyer.deleteTaobao);
 
 
 //=seller
-app.post('/hongbaos', routes.createHongbao);
 app.get('/hongbao-lists', seller.hongbaoLists);
 
+app.post('/sellers', seller.createSeller);
+app.get('/sellers/authorize', seller.sellerAuthorize);
+
+app.post('hongbaos/', seller.createHongbao);
+app.get('/sellers/:sid/hongbao_records', seller.getSellerHongbaoRecords);
+
+app.patch('/sellers/:sid', seller.updateSeller);
+app.get('/sellers/:sid', seller.getSeller);
 
 
 
-// app.post('/user-info', app.oauth.authorise(), user.userInfo);
+// app.post('/user-info', app.oauth.authorise(), buyer.userInfo);
 
 app.use(app.oauth.errorHandler());
 
 
 
 // app.get('/', routes.index);
-// app.get('/users', user.list);
-// app.get('/chen', user.chen);
+// app.get('/users', buyer.list);
+// app.get('/chen', buyer.chen);
 // app.post('/test', routes.test);
 
 app.listen(3000);
